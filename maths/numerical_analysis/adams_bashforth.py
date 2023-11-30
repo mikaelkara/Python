@@ -57,8 +57,8 @@ class AdamsBashforth:
         if self.step_size <= 0:
             raise ValueError("Step size must be positive.")
 
-        if not all(
-            round(x1 - x0, 10) == self.step_size
+        if any(
+            round(x1 - x0, 10) != self.step_size
             for x0, x1 in zip(self.x_initials, self.x_initials[1:])
         ):
             raise ValueError("x-values must be equally spaced according to step size.")

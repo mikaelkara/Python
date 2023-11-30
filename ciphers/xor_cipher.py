@@ -132,13 +132,7 @@ class XORCipher:
         # make sure key is an appropriate size
         key %= 256
 
-        # This will be returned
-        ans = ""
-
-        for ch in content:
-            ans += chr(ord(ch) ^ key)
-
-        return ans
+        return "".join(chr(ord(ch) ^ key) for ch in content)
 
     def decrypt_string(self, content: str, key: int = 0) -> str:
         """
@@ -173,13 +167,7 @@ class XORCipher:
         # make sure key is an appropriate size
         key %= 256
 
-        # This will be returned
-        ans = ""
-
-        for ch in content:
-            ans += chr(ord(ch) ^ key)
-
-        return ans
+        return "".join(chr(ord(ch) ^ key) for ch in content)
 
     def encrypt_file(self, file: str, key: int = 0) -> bool:
         """

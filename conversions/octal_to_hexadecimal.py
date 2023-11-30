@@ -23,9 +23,8 @@ def octal_to_hex(octal: str) -> str:
 
     if not isinstance(octal, str):
         raise TypeError("Expected a string as input")
-    if octal.startswith("0o"):
-        octal = octal[2:]
-    if octal == "":
+    octal = octal.removeprefix("0o")
+    if not octal:
         raise ValueError("Empty string was passed to the function")
     if any(char not in "01234567" for char in octal):
         raise ValueError("Not a Valid Octal Number")
@@ -42,7 +41,7 @@ def octal_to_hex(octal: str) -> str:
         revhex += hex_char[decimal & 15]
         decimal >>= 4
 
-    return "0x" + revhex[::-1]
+    return f"0x{revhex[::-1]}"
 
 
 if __name__ == "__main__":
@@ -56,7 +55,7 @@ if __name__ == "__main__":
 
     for num in nums:
         hexadecimal = octal_to_hex(num)
-        expected = "0x" + hex(int(num, 8))[2:].upper()
+        expected = f"0x{hex(int(num, 8))[2:].upper()}"
 
         assert hexadecimal == expected
 

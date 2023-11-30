@@ -89,20 +89,17 @@ def infix_2_postfix(infix: str) -> str:
         elif x == "(":
             stack.append(x)  # if x is "(" push to Stack
         elif x == ")":  # if x is ")" pop stack until "(" is encountered
-            if len(stack) == 0:  # close bracket without open bracket
+            if not stack:  # close bracket without open bracket
                 raise IndexError("list index out of range")
 
             while stack[-1] != "(":
                 post_fix.append(stack.pop())  # Pop stack & add the content to Postfix
             stack.pop()
         else:
-            if len(stack) == 0:
-                stack.append(x)  # If stack is empty, push x to stack
-            else:  # while priority of x is not > priority of element in the stack
+            if stack:
                 while stack and stack[-1] != "(" and priority[x] <= priority[stack[-1]]:
                     post_fix.append(stack.pop())  # pop stack & add to Postfix
-                stack.append(x)  # push x to stack
-
+            stack.append(x)  # If stack is empty, push x to stack
         print(
             x.center(8),
             ("".join(stack)).ljust(print_width),
@@ -110,7 +107,7 @@ def infix_2_postfix(infix: str) -> str:
             sep=" | ",
         )  # Output in tabular format
 
-    while len(stack) > 0:  # while stack is not empty
+    while stack:  # while stack is not empty
         if stack[-1] == "(":  # open bracket with no close bracket
             raise ValueError("invalid expression")
 

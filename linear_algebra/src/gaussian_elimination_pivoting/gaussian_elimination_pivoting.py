@@ -47,8 +47,6 @@ def solve_linear_system(matrix: np.ndarray) -> np.ndarray:
                 ab[[column_num, i]] = ab[[i, column_num]]
                 if ab[column_num, column_num] == 0.0:
                     raise ValueError("Matrix is not correct")
-            else:
-                pass
         if column_num != 0:
             for i in range(column_num, num_of_rows):
                 ab[i, :] -= (
@@ -64,8 +62,6 @@ def solve_linear_system(matrix: np.ndarray) -> np.ndarray:
                 ab[[column_num, i]] = ab[[i, column_num]]
                 if ab[column_num, column_num] == 0.0:
                     raise ValueError("Matrix is not correct")
-            else:
-                pass
         if column_num != 0:
             for i in range(column_num, num_of_rows):
                 ab[i, :] -= (

@@ -61,10 +61,7 @@ def calculate_spearman_rank_correlation(
     # Calculate the sum of squared differences
     d_squared = sum(di**2 for di in d)
 
-    # Calculate the Spearman's rank correlation coefficient
-    rho = 1 - (6 * d_squared) / (n * (n**2 - 1))
-
-    return rho
+    return 1 - (6 * d_squared) / (n * (n**2 - 1))
 
 
 if __name__ == "__main__":

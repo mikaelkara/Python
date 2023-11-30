@@ -116,13 +116,12 @@ def encrypt_fractionated_morse(plaintext: str, key: str) -> str:
 
     fractionated_morse_dict = {v: k for k, v in zip(key, MORSE_COMBINATIONS)}
     fractionated_morse_dict["xxx"] = ""
-    encrypted_text = "".join(
+    return "".join(
         [
             fractionated_morse_dict[morse_code[i : i + 3]]
             for i in range(0, len(morse_code), 3)
         ]
     )
-    return encrypted_text
 
 
 def decrypt_fractionated_morse(ciphertext: str, key: str) -> str:
@@ -146,10 +145,9 @@ def decrypt_fractionated_morse(ciphertext: str, key: str) -> str:
     morse_code = "".join(
         [inverse_fractionated_morse_dict.get(letter, "") for letter in ciphertext]
     )
-    decrypted_text = "".join(
+    return "".join(
         [REVERSE_DICT[code] for code in morse_code.split("x")]
     ).strip()
-    return decrypted_text
 
 
 if __name__ == "__main__":

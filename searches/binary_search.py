@@ -316,9 +316,7 @@ def exponential_search(sorted_collection: list[int], item: int) -> int:
     last_result = binary_search_by_recursion(
         sorted_collection=sorted_collection, item=item, left=left, right=right
     )
-    if last_result is None:
-        return -1
-    return last_result
+    return -1 if last_result is None else last_result
 
 
 searches = (  # Fastest to slowest...

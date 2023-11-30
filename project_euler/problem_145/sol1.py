@@ -86,10 +86,10 @@ def slow_solution(max_power: int = 9) -> int:
     >>> slow_solution(7)
     68720
     """
-    result = 0
-    for length in range(1, max_power + 1):
-        result += slow_reversible_numbers(length, 0, [0] * length, length)
-    return result
+    return sum(
+        slow_reversible_numbers(length, 0, [0] * length, length)
+        for length in range(1, max_power + 1)
+    )
 
 
 def reversible_numbers(
@@ -122,10 +122,10 @@ def solution(max_power: int = 9) -> int:
     >>> solution(7)
     68720
     """
-    result = 0
-    for length in range(1, max_power + 1):
-        result += reversible_numbers(length, 0, [0] * length, length)
-    return result
+    return sum(
+        reversible_numbers(length, 0, [0] * length, length)
+        for length in range(1, max_power + 1)
+    )
 
 
 def benchmark() -> None:

@@ -150,16 +150,14 @@ def encrypt_message(
         message, alphabet
     )
 
-    encrypted_numeric = ""
-    for i in range(0, len(message) + 1, period):
-        encrypted_numeric += __encrypt_part(
-            message[i : i + period], character_to_number
-        )
-
-    encrypted = ""
-    for i in range(0, len(encrypted_numeric), 3):
-        encrypted += number_to_character[encrypted_numeric[i : i + 3]]
-    return encrypted
+    encrypted_numeric = "".join(
+        __encrypt_part(message[i : i + period], character_to_number)
+        for i in range(0, len(message) + 1, period)
+    )
+    return "".join(
+        number_to_character[encrypted_numeric[i : i + 3]]
+        for i in range(0, len(encrypted_numeric), 3)
+    )
 
 
 def decrypt_message(
@@ -194,9 +192,7 @@ def decrypt_message(
     for i in range(0, len(message), period):
         a, b, c = __decrypt_part(message[i : i + period], character_to_number)
 
-        for j in range(len(a)):
-            decrypted_numeric.append(a[j] + b[j] + c[j])
-
+        decrypted_numeric.extend(a[j] + b[j] + c[j] for j in range(len(a)))
     return "".join(number_to_character[each] for each in decrypted_numeric)
 
 

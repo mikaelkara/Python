@@ -85,15 +85,13 @@ def quick_select(arr: list, target: int) -> int:
     left = []
     right = []
     check = False
-    for i in range(len(arr)):
-        if arr[i] < x:
-            left.append(arr[i])
-        elif arr[i] > x:
-            right.append(arr[i])
-        elif arr[i] == x and not check:
-            check = True
+    for item in arr:
+        if item < x:
+            left.append(item)
+        elif item > x or item != x or check:
+            right.append(item)
         else:
-            right.append(arr[i])
+            check = True
     rank_x = len(left) + 1
     if rank_x == target:
         answer = x

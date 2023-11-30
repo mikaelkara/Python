@@ -19,7 +19,7 @@ def longest_palindromic_subsequence(input_string: str) -> int:
     n = len(input_string)
     rev = input_string[::-1]
     m = len(rev)
-    dp = [[-1] * (m + 1) for i in range(n + 1)]
+    dp = [[-1] * (m + 1) for _ in range(n + 1)]
     for i in range(n + 1):
         dp[i][0] = 0
     for i in range(m + 1):

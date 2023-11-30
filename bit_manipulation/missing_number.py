@@ -28,7 +28,7 @@ def find_missing_number(nums: list[int]) -> int:
     high = max(nums)
     missing_number = high
 
-    for i in range(low, high):
+    for i in range(low, missing_number):
         missing_number ^= i ^ nums[i - low]
 
     return missing_number

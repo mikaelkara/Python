@@ -37,12 +37,12 @@ def backtrack(
 
     if open_count < n:
         # If we can add an open parenthesis, do so, and recurse.
-        backtrack(partial + "(", open_count + 1, close_count, n, result)
+        backtrack(f"{partial}(", open_count + 1, close_count, n, result)
 
     if close_count < open_count:
         # If we can add a close parenthesis (it won't make the combination invalid),
         # do so, and recurse.
-        backtrack(partial + ")", open_count, close_count + 1, n, result)
+        backtrack(f"{partial})", open_count, close_count + 1, n, result)
 
 
 def generate_parenthesis(n: int) -> list[str]:

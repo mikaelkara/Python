@@ -276,18 +276,16 @@ def check_validity(number_of_bands: int, colors: list) -> bool:
     ValueError: Cyan is not a valid color
 
     """
-    if number_of_bands >= 3 and number_of_bands <= 6:
-        if number_of_bands == len(colors):
-            for color in colors:
-                if color not in valid_colors:
-                    msg = f"{color} is not a valid color"
-                    raise ValueError(msg)
-            return True
-        else:
-            msg = f"Expecting {number_of_bands} colors, provided {len(colors)} colors"
-            raise ValueError(msg)
+    if number_of_bands < 3 or number_of_bands > 6:
+        raise ValueError("Invalid number of bands. Resistor bands must be 3 to 6")
+    if number_of_bands == len(colors):
+        for color in colors:
+            if color not in valid_colors:
+                msg = f"{color} is not a valid color"
+                raise ValueError(msg)
+        return True
     else:
-        msg = "Invalid number of bands. Resistor bands must be 3 to 6"
+        msg = f"Expecting {number_of_bands} colors, provided {len(colors)} colors"
         raise ValueError(msg)
 
 
@@ -330,41 +328,39 @@ def calculate_resistance(number_of_bands: int, color_code_list: list) -> dict:
     ValueError: Lime is not a valid color
 
     """
-    is_valid = check_validity(number_of_bands, color_code_list)
-    if is_valid:
-        number_of_significant_bands = get_band_type_count(
-            number_of_bands, "significant"
-        )
-        significant_colors = color_code_list[:number_of_significant_bands]
-        significant_digits = int(get_significant_digits(significant_colors))
-        multiplier_color = color_code_list[number_of_significant_bands]
-        multiplier = get_multiplier(multiplier_color)
-        if number_of_bands == 3:
-            tolerance_color = None
-        else:
-            tolerance_color = color_code_list[number_of_significant_bands + 1]
-        tolerance = (
-            20 if tolerance_color is None else get_tolerance(str(tolerance_color))
-        )
-        if number_of_bands != 6:
-            temperature_coeffecient_color = None
-        else:
-            temperature_coeffecient_color = color_code_list[
-                number_of_significant_bands + 2
-            ]
-        temperature_coeffecient = (
-            0
-            if temperature_coeffecient_color is None
-            else get_temperature_coeffecient(str(temperature_coeffecient_color))
-        )
-        resisitance = significant_digits * multiplier
-        if temperature_coeffecient == 0:
-            answer = f"{resisitance}Ω ±{tolerance}% "
-        else:
-            answer = f"{resisitance}Ω ±{tolerance}% {temperature_coeffecient} ppm/K"
-        return {"resistance": answer}
-    else:
+    if not (is_valid := check_validity(number_of_bands, color_code_list)):
         raise ValueError("Input is invalid")
+    number_of_significant_bands = get_band_type_count(
+        number_of_bands, "significant"
+    )
+    significant_colors = color_code_list[:number_of_significant_bands]
+    significant_digits = int(get_significant_digits(significant_colors))
+    multiplier_color = color_code_list[number_of_significant_bands]
+    multiplier = get_multiplier(multiplier_color)
+    if number_of_bands == 3:
+        tolerance_color = None
+    else:
+        tolerance_color = color_code_list[number_of_significant_bands + 1]
+    tolerance = (
+        20 if tolerance_color is None else get_tolerance(str(tolerance_color))
+    )
+    if number_of_bands != 6:
+        temperature_coeffecient_color = None
+    else:
+        temperature_coeffecient_color = color_code_list[
+            number_of_significant_bands + 2
+        ]
+    temperature_coeffecient = (
+        0
+        if temperature_coeffecient_color is None
+        else get_temperature_coeffecient(str(temperature_coeffecient_color))
+    )
+    resisitance = significant_digits * multiplier
+    if temperature_coeffecient == 0:
+        answer = f"{resisitance}Ω ±{tolerance}% "
+    else:
+        answer = f"{resisitance}Ω ±{tolerance}% {temperature_coeffecient} ppm/K"
+    return {"resistance": answer}
 
 
 if __name__ == "__main__":

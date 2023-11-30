@@ -37,10 +37,8 @@ def breadth_first_search(graph: list, source: int, sink: int, parents: list) -> 
     IndexError: list index out of range
     """
     visited = [False] * len(graph)  # Mark all nodes as not visited
-    queue = []  # breadth-first search queue
+    queue = [source]
 
-    # Source node
-    queue.append(source)
     visited[source] = True
 
     while queue:

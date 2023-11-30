@@ -111,10 +111,11 @@ def create_tree(data_set: list, min_sup: int = 1) -> tuple[TreeNode, dict]:
 
     fp_tree = TreeNode("Null Set", 1, None)  # Parent is None for the root node
     for tran_set in data_set:
-        local_d = {
-            item: header_table[item][0] for item in tran_set if item in freq_item_set
-        }
-        if local_d:
+        if local_d := {
+            item: header_table[item][0]
+            for item in tran_set
+            if item in freq_item_set
+        }:
             sorted_items = sorted(
                 local_d.items(), key=lambda item_info: item_info[1], reverse=True
             )

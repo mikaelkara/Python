@@ -53,7 +53,7 @@ def minimax(
 
     if depth < 0:
         raise ValueError("Depth cannot be less than 0")
-    if len(scores) == 0:
+    if not scores:
         raise ValueError("Scores cannot be empty")
 
     # Base case: If the current depth equals the height of the tree,

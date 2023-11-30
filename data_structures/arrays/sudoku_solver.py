@@ -89,7 +89,7 @@ def eliminate(values, s, d):
     ## (2) If a unit u is reduced to only one place for a value d, then put it there.
     for u in units[s]:
         dplaces = [s for s in u if d in values[s]]
-        if len(dplaces) == 0:
+        if not dplaces:
             return False  ## Contradiction: no place for this value
         elif len(dplaces) == 1:
             # d can only be in one place in unit; assign it there
@@ -119,10 +119,7 @@ def solve(grid):
 
 def some(seq):
     "Return some element of seq that is true."
-    for e in seq:
-        if e:
-            return e
-    return False
+    return next((e for e in seq if e), False)
 
 
 def search(values):

@@ -45,7 +45,7 @@ def is_match(string: str, pattern: str) -> bool:
     >>> is_match('aa','*')
     True
     """
-    dp = [[False] * (len(pattern) + 1) for _ in string + "1"]
+    dp = [[False] * (len(pattern) + 1) for _ in f"{string}1"]
     dp[0][0] = True
     # Fill in the first row
     for j, char in enumerate(pattern, 1):

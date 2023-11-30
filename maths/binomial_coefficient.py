@@ -43,7 +43,7 @@ def binomial_coefficient(n: int, r: int) -> int:
         raise ValueError("n and r must be non-negative integers")
     if 0 in (n, r):
         return 1
-    c = [0 for i in range(r + 1)]
+    c = [0 for _ in range(r + 1)]
     # nc0 = 1
     c[0] = 1
     for i in range(1, n + 1):

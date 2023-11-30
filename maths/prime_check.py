@@ -40,7 +40,7 @@ def is_prime(number: int) -> bool:
     """
 
     # precondition
-    if not isinstance(number, int) or not number >= 0:
+    if not isinstance(number, int) or number < 0:
         raise ValueError("is_prime() only accepts positive integers")
 
     if 1 < number < 4:
@@ -50,11 +50,10 @@ def is_prime(number: int) -> bool:
         # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
         return False
 
-    # All primes number are in format of 6k +/- 1
-    for i in range(5, int(math.sqrt(number) + 1), 6):
-        if number % i == 0 or number % (i + 2) == 0:
-            return False
-    return True
+    return not any(
+        number % i == 0 or number % (i + 2) == 0
+        for i in range(5, int(math.sqrt(number) + 1), 6)
+    )
 
 
 class Test(unittest.TestCase):
