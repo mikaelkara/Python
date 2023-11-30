@@ -84,9 +84,7 @@ class Heap(Generic[T]):
         ...
         TypeError: '>' not supported between instances of 'str' and 'int'
         """
-        if child_idx > 0:
-            return (child_idx - 1) // 2
-        return None
+        return (child_idx - 1) // 2 if child_idx > 0 else None
 
     def left_child_idx(self, parent_idx: int) -> int | None:
         """
@@ -94,9 +92,7 @@ class Heap(Generic[T]):
         if not, return None.
         """
         left_child_index = 2 * parent_idx + 1
-        if left_child_index < self.heap_size:
-            return left_child_index
-        return None
+        return left_child_index if left_child_index < self.heap_size else None
 
     def right_child_idx(self, parent_idx: int) -> int | None:
         """
@@ -104,9 +100,7 @@ class Heap(Generic[T]):
         if not, return None.
         """
         right_child_index = 2 * parent_idx + 2
-        if right_child_index < self.heap_size:
-            return right_child_index
-        return None
+        return right_child_index if right_child_index < self.heap_size else None
 
     def max_heapify(self, index: int) -> None:
         """
@@ -115,21 +109,22 @@ class Heap(Generic[T]):
         It is the function that is responsible for restoring the property
         of Max heap i.e the maximum element is always at top.
         """
-        if index < self.heap_size:
-            violation: int = index
-            left_child = self.left_child_idx(index)
-            right_child = self.right_child_idx(index)
-            # check which child is larger than its parent
-            if left_child is not None and self.h[left_child] > self.h[violation]:
-                violation = left_child
-            if right_child is not None and self.h[right_child] > self.h[violation]:
-                violation = right_child
-            # if violation indeed exists
-            if violation != index:
-                # swap to fix the violation
-                self.h[violation], self.h[index] = self.h[index], self.h[violation]
-                # fix the subsequent violation recursively if any
-                self.max_heapify(violation)
+        if index >= self.heap_size:
+            return
+        violation: int = index
+        left_child = self.left_child_idx(index)
+        right_child = self.right_child_idx(index)
+        # check which child is larger than its parent
+        if left_child is not None and self.h[left_child] > self.h[violation]:
+            violation = left_child
+        if right_child is not None and self.h[right_child] > self.h[violation]:
+            violation = right_child
+        # if violation indeed exists
+        if violation != index:
+            # swap to fix the violation
+            self.h[violation], self.h[index] = self.h[index], self.h[violation]
+            # fix the subsequent violation recursively if any
+            self.max_heapify(violation)
 
     def build_max_heap(self, collection: Iterable[T]) -> None:
         """

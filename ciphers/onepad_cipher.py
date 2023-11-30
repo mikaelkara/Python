@@ -51,10 +51,9 @@ class Onepad:
         >>> Onepad().decrypt([9729, 114756, 4653, 31309, 10492], [69, 292, 33, 131, 61])
         'Hello'
         """
-        plain = []
-        for i in range(len(key)):
-            p = int((cipher[i] - (key[i]) ** 2) / key[i])
-            plain.append(chr(p))
+        plain = [
+            chr(int((cipher[i] - (key[i]) ** 2) / key[i])) for i in range(len(key))
+        ]
         return "".join(plain)
 
 

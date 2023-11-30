@@ -73,7 +73,7 @@ def matrix_chain_multiply(arr: list[int]) -> int:
         return 0
     # initialising 2D dp matrix
     n = len(arr)
-    dp = [[maxsize for j in range(n)] for i in range(n)]
+    dp = [[maxsize for _ in range(n)] for _ in range(n)]
     # we want minimum cost of multiplication of matrices
     # of dimension (i*k) and (k*j). This cost is arr[i-1]*arr[k]*arr[j].
     for i in range(n - 1, 0, -1):

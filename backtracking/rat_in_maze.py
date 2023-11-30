@@ -121,16 +121,23 @@ def solve_maze(
     """
     size = len(maze)
     # Check if source and destination coordinates are Invalid.
-    if not (0 <= source_row <= size - 1 and 0 <= source_column <= size - 1) or (
-        not (0 <= destination_row <= size - 1 and 0 <= destination_column <= size - 1)
+    if (
+        not 0 <= source_row <= size - 1
+        or not 0 <= source_column <= size - 1
+        or not 0 <= destination_row <= size - 1
+        or not 0 <= destination_column <= size - 1
     ):
         raise ValueError("Invalid source or destination coordinates")
     # We need to create solution object to save path.
     solutions = [[1 for _ in range(size)] for _ in range(size)]
-    solved = run_maze(
-        maze, source_row, source_column, destination_row, destination_column, solutions
-    )
-    if solved:
+    if solved := run_maze(
+        maze,
+        source_row,
+        source_column,
+        destination_row,
+        destination_column,
+        solutions,
+    ):
         return solutions
     else:
         raise ValueError("No solution exists!")
@@ -161,13 +168,11 @@ def run_maze(
         solutions[i][j] = 0
         return True
 
-    lower_flag = (not i < 0) and (not j < 0)  # Check lower bounds
+    lower_flag = i >= 0 and j >= 0
     upper_flag = (i < size) and (j < size)  # Check upper bounds
 
     if lower_flag and upper_flag:
-        # check for already visited and block points.
-        block_flag = (solutions[i][j]) and (not maze[i][j])
-        if block_flag:
+        if block_flag := (solutions[i][j]) and (not maze[i][j]):
             # check visited
             solutions[i][j] = 0
 

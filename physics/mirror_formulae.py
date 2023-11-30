@@ -77,8 +77,7 @@ def focal_length(distance_of_object: float, distance_of_image: float) -> float:
         raise ValueError(
             "Invalid inputs. Enter non zero values with respect to the sign convention."
         )
-    focal_length = 1 / ((1 / distance_of_object) + (1 / distance_of_image))
-    return focal_length
+    return 1 / ((1 / distance_of_object) + (1 / distance_of_image))
 
 
 def object_distance(focal_length: float, distance_of_image: float) -> float:
@@ -100,8 +99,7 @@ def object_distance(focal_length: float, distance_of_image: float) -> float:
         raise ValueError(
             "Invalid inputs. Enter non zero values with respect to the sign convention."
         )
-    object_distance = 1 / ((1 / focal_length) - (1 / distance_of_image))
-    return object_distance
+    return 1 / ((1 / focal_length) - (1 / distance_of_image))
 
 
 def image_distance(focal_length: float, distance_of_object: float) -> float:
@@ -123,5 +121,4 @@ def image_distance(focal_length: float, distance_of_object: float) -> float:
         raise ValueError(
             "Invalid inputs. Enter non zero values with respect to the sign convention."
         )
-    image_distance = 1 / ((1 / focal_length) - (1 / distance_of_object))
-    return image_distance
+    return 1 / ((1 / focal_length) - (1 / distance_of_object))

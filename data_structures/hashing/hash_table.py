@@ -121,12 +121,10 @@ class HashTable:
         [0, 1, 2, 3, 4]
         [5, 1, 2, 3, 4]
         """
-        i = 1
         self.__aux_list = values
-        for value in values:
+        for i, value in enumerate(values, start=1):
             self.insert_data(value)
             self._step_by_step(i)
-            i += 1
 
     def _set_value(self, key, data):
         """
@@ -262,10 +260,7 @@ class HashTable:
         if self.values[key] is None:
             self._set_value(key, data)
 
-        elif self.values[key] == data:
-            pass
-
-        else:
+        elif self.values[key] != data:
             collision_resolution = self._collision_resolution(key, data)
             if collision_resolution is not None:
                 self._set_value(collision_resolution, data)

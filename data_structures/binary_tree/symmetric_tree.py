@@ -68,9 +68,7 @@ def is_symmetric_tree(tree: Node) -> bool:
     >>> is_symmetric_tree(make_asymmetric_tree())
     False
     """
-    if tree:
-        return is_mirror(tree.left, tree.right)
-    return True  # An empty tree is considered symmetric.
+    return is_mirror(tree.left, tree.right) if tree else True
 
 
 def is_mirror(left: Node | None, right: Node | None) -> bool:

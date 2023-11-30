@@ -15,10 +15,10 @@ def excess_3_code(number: int) -> str:
     >>> excess_3_code(120)
     '0b010001010011'
     """
-    num = ""
-    for digit in str(max(0, number)):
-        num += str(bin(int(digit) + 3))[2:].zfill(4)
-    return "0b" + num
+    num = "".join(
+        bin(int(digit) + 3)[2:].zfill(4) for digit in str(max(0, number))
+    )
+    return f"0b{num}"
 
 
 if __name__ == "__main__":

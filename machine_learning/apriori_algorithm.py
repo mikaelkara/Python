@@ -45,11 +45,10 @@ def prune(itemset: list, candidates: list, length: int) -> list:
     """
     pruned = []
     for candidate in candidates:
-        is_subsequence = True
-        for item in candidate:
-            if item not in itemset or itemset.count(item) < length - 1:
-                is_subsequence = False
-                break
+        is_subsequence = not any(
+            item not in itemset or itemset.count(item) < length - 1
+            for item in candidate
+        )
         if is_subsequence:
             pruned.append(candidate)
     return pruned
@@ -83,9 +82,9 @@ def apriori(data: list[list[str]], min_support: int) -> list[tuple[list[str], in
         itemset = [item for i, item in enumerate(itemset) if counts[i] >= min_support]
 
         # Append frequent itemsets (as a list to maintain order)
-        for i, item in enumerate(itemset):
-            frequent_itemsets.append((sorted(item), counts[i]))
-
+        frequent_itemsets.extend(
+            (sorted(item), counts[i]) for i, item in enumerate(itemset)
+        )
         length += 1
         itemset = prune(itemset, list(combinations(itemset, length)), length)
 

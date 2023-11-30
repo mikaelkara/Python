@@ -73,9 +73,9 @@ def printboard(board: list[list[int]]) -> None:
     """
     Prints the boards that have a successful combination.
     """
-    for i in range(len(board)):
+    for item in board:
         for j in range(len(board)):
-            if board[i][j] == 1:
+            if item[j] == 1:
                 print("Q", end=" ")  # Queen is present
             else:
                 print(".", end=" ")  # Empty cell
@@ -84,6 +84,6 @@ def printboard(board: list[list[int]]) -> None:
 
 # Number of queens (e.g., n=8 for an 8x8 board)
 n = 8
-board = [[0 for i in range(n)] for j in range(n)]
+board = [[0 for _ in range(n)] for _ in range(n)]
 solve(board, 0)
 print("The total number of solutions are:", len(solution))

@@ -39,7 +39,7 @@ def jacobi_symbol(random_a: int, number: int) -> int:
     0
     """
 
-    if random_a in (0, 1):
+    if random_a in {0, 1}:
         return random_a
 
     random_a %= number

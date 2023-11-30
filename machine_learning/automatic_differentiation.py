@@ -263,7 +263,7 @@ class GradientTracker:
 
         # iterating through each operations in the computation graph
         operation_queue = [target.result_of]
-        while len(operation_queue) > 0:
+        while operation_queue:
             operation = operation_queue.pop()
             for param in operation.params:
                 # as per the chain rule, multiplying partial derivatives

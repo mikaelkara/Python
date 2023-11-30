@@ -86,9 +86,7 @@ class BinaryTree:
         return self._depth(self.root)
 
     def _depth(self, node: Node | None) -> int:  # noqa: UP007
-        if not node:
-            return 0
-        return 1 + max(self._depth(node.left), self._depth(node.right))
+        return 1 + max(self._depth(node.left), self._depth(node.right)) if node else 0
 
     def is_full(self) -> bool:
         """

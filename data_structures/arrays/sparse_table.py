@@ -36,7 +36,7 @@ def build_sparse_table(number_list: list[int]) -> list[list[int]]:
 
     # smallest power of 2 subset length that fully covers number_list
     row = int(log2(length)) + 1
-    sparse_table = [[0 for i in range(length)] for j in range(row)]
+    sparse_table = [[0 for _ in range(length)] for _ in range(row)]
 
     # minimum of subset of length 1 is that value itself
     for i, value in enumerate(number_list):
